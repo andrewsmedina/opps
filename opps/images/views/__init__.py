@@ -17,7 +17,7 @@ class ImageDetail(OppsDetail):
     def queryset(self):
         self.site = get_current_site(self.request).domain
         self.long_slug = self.kwargs.get('slug')
-        self.image = self.model.objects.get(
+        self.image = self.model.objects.filter(
             slug=self.kwargs.get('slug'),
             date_available__lte=timezone.now(),
-            published=True)
+            published=True)[0]
