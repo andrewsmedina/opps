@@ -64,7 +64,7 @@ class OppsView(object):
 
         if self.slug:
             context['articleboxes'] = context['articleboxes'].filter(
-                article__slug=self.slug)
+                containers__slug=self.slug)
 
         return context
 

@@ -173,25 +173,27 @@ class Imaged(models.Model):
         abstract = True
 
     def all_images(self):
-        cachekey = _cache_key(
-            '{}-all_images'.format(self.__class__.__name__),
-            self.__class__, self.site_domain,
-            u"{}-{}".format(self.channel_long_slug, self.slug))
-        getcache = cache.get(cachekey)
-        if getcache:
-            return getcache
+        # cachekey = _cache_key(
+        #     '{}-all_images'.format(self.__class__.__name__),
+        #     self.__class__, self.site_domain,
+        #     u"{}-{}".format(self.channel_long_slug, self.slug))
+        # getcache = cache.get(cachekey)
+        # if getcache:
+        #     return getcache
 
-        imgs = [self.main_image]
-        images = self.images.filter(
-            published=True, date_available__lte=timezone.now()
-        ).order_by('articleimage__order', '-date_available')
+        # imgs = [self.main_image]
+        # images = self.images.filter(
+        #     published=True, date_available__lte=timezone.now()
+        # )
+        # # .order_by('containerimage__order', '-date_available')
 
-        if self.main_image:
-            images = images.exclude(pk=self.main_image.pk)
-        imgs += [i for i in images.distinct()]
+        # if self.main_image:
+        #     images = images.exclude(pk=self.main_image.pk)
+        # imgs += [i for i in images.distinct()]
 
-        cache.set(cachekey, imgs)
-        return imgs
+        # cache.set(cachekey, imgs)
+        # return imgs
+        return []
 
     def get_thumb(self):
         return self.main_image
